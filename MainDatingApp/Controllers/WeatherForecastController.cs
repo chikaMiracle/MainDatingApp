@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MainDatingApp.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace MainDatingApp.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
 
@@ -22,6 +24,7 @@ namespace MainDatingApp.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
@@ -30,7 +33,7 @@ namespace MainDatingApp.Controllers
         }
 
 
-
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async  Task<IActionResult> GetValue(int id)
         {
