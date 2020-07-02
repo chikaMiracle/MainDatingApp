@@ -34,6 +34,7 @@ namespace MainDatingApp.Helpers
                     });
 
             CreateMap<Photo, PhotosForDetailedDto>();
+            CreateMap<UserForUpdateDto, User>();
 
         }
     }
