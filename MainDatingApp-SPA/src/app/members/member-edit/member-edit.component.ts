@@ -14,6 +14,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class MemberEditComponent implements OnInit {
  @ViewChild('editForm', {static: false}) editForm: NgForm
  user: User;
+ photoUrl: string;
 
  //Host Listener helps u prevent the browser from closing if u mistakenly click on close
  @HostListener('window:beforeunload', ['$event'])
@@ -34,6 +35,10 @@ export class MemberEditComponent implements OnInit {
        this.user = data['user'];
        console.log(this.user);
     });
+
+    this.authService.currentPhotoUrl.subscribe(photourl =>{
+      this.photoUrl = photourl;
+    })
   }
 
   updateUser(){
@@ -45,8 +50,13 @@ export class MemberEditComponent implements OnInit {
     });
  
 
+
   }
 
  
+  //method we bind with @output() event from photo-editor component
+  updateMainPhoto(photourl){
+    this.user.photoUrl = photourl;
+  }
 
 }
