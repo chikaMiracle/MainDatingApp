@@ -1,4 +1,5 @@
-﻿using MainDatingApp.Models;
+﻿using MainDatingApp.Helpers;
+using MainDatingApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace MainDatingApp.Data
         void Delete<T>(T entity) where T : class;
 
         Task<bool> SaveAll();
-        Task<IEnumerable<User>> GetUsers();
+        Task<PagedList<User>> GetUsers(UserParams userParams);
 
         Task<User> GetUser(int id);
 
