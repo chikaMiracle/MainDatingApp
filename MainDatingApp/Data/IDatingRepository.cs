@@ -23,5 +23,14 @@ namespace MainDatingApp.Data
         Task<Photo> GetMainPhotoForUser(int userId);
 
         Task<Like> GetLike(int userId, int recipientId);
+
+
+        //getting an individual message
+        Task<Message> GetMessage(int id);
+
+        Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams);
+
+        //Conversion btwn two users
+        Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
     }
 }
