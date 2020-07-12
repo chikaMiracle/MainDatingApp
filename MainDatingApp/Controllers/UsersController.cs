@@ -7,6 +7,7 @@ using AutoMapper;
 using MainDatingApp.Data;
 using MainDatingApp.Dtos;
 using MainDatingApp.Helpers;
+using MainDatingApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -82,6 +83,42 @@ namespace MainDatingApp.Controllers
             throw new Exception($"Updating user {id} failed on save");
         }
 
+
+        [HttpPost("{id}/like/{recipientId}")]
+
+        public async Task<IActionResult> LikerUser(int id, int recipientId)
+        {
+         
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+
+                return Unauthorized();
+
+            //to check if the like exist
+
+            var like = await _repo.GetLike(id, recipientId);
+
+            //to check if the  like is not equal to null
+
+            if (like != null)
+                return BadRequest("You already like the user");
+
+            if (await _repo.GetUser(recipientId) == null)
+
+                return NotFound();
+
+            like = new Like
+            {
+                LikerId = id,
+                LikeeId = recipientId
+            };
+
+            _repo.Add<Like>(like);
+            if (await _repo.SaveAll())
+                return Ok();
+
+            return BadRequest("Failed to like user");
+
+        }
     }
 
 }

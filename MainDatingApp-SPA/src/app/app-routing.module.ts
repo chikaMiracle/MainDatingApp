@@ -11,6 +11,7 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { ListsResolver } from './_resolvers/lists.resolver';
 
 
 const routes: Routes = [
@@ -26,7 +27,7 @@ const routes: Routes = [
       //we wont pass the id in the route parameter from this one we get it from the token of the decoded user
       {path:'member/edit', component: MemberEditComponent, resolve: {user: MemberEditResolver}, canDeactivate:[PreventUnsavedChanges]},
       {path: 'messages', component:MessagesComponent},
-      {path: 'lists', component:ListsComponent},
+      {path: 'lists', component:ListsComponent, resolve:{users: ListsResolver} },
     ]
   },
  
