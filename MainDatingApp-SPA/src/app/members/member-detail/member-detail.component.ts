@@ -5,6 +5,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { TabsetComponent } from 'ngx-bootstrap';
+// import * as moment from 'moment'; // import moment.
 
 @Component({
   selector: 'app-member-detail',
@@ -19,7 +20,9 @@ export class MemberDetailComponent implements OnInit, AfterViewInit {
   @ViewChild('memberTabs',{static:false}) memberTabs: TabsetComponent
 
   constructor(private userService: UserService, 
-    private alertify: AlertifyService, private route: ActivatedRoute) { }
+    private alertify: AlertifyService, private route: ActivatedRoute) {
+      //this.lastUpdated = this.getCurrentTime(); **// this shows error.. that type string is not assignable to type 'Date'**
+     }
 
   ngOnInit() {
    this.route.data.subscribe(data => {
@@ -51,6 +54,9 @@ ngAfterViewInit(){
 }
 
 
+// var getCurrentTime(){
+//   return moment().format('DD MMM YYYY HH:mm:ss'); 
+// }
 //Array of images
 
   getImages(){
